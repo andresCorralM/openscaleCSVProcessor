@@ -33,7 +33,7 @@ public class ThreeStdOutlierDetector implements OutlierDetector {
             }
         }
         
-        outliersArr = Arrays.stream(outliers.toArray()).mapToDouble(Double::doubleValue).toArray();
+        outliersArr = Arrays.stream(outliers.toArray()).mapToDouble(d->((Double)d).doubleValue()).toArray();
         
         return outliersArr;
     }
