@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
 import java.util.List;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -35,9 +36,17 @@ public class Parser {
         
         try(FileReader fr = new FileReader(file);
 	         BufferedReader br = new BufferedReader(fr)){
-            final CSVParser parser=csvFormat.parse(br);
-            records=parser.getRecords();
+            records=parse(br);
         }
+        
+        return records;
+    }
+    
+    public List<CSVRecord> parse(Reader reader) throws IOException {
+        List<CSVRecord> records;
+        
+        final CSVParser parser=csvFormat.parse(reader);
+        records=parser.getRecords();
         
         return records;
     }
