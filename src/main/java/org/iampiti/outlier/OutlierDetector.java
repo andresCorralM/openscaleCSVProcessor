@@ -1,5 +1,7 @@
 package org.iampiti.outlier;
 
+import java.util.List;
+
 
 /**
  * Implementations specialise in detecting anomalous data (outliers) for a certain category of data (e.g. weight)
@@ -13,6 +15,10 @@ public interface OutlierDetector {
      * Sets the dataset to be used by this instance
      */
     void setData(double[] data);
+    /**
+     * Returns a read-only view of the data set in the instance
+     */
+    List<Double> getDataAsList();
     /**
      * Return whether this particular datum is an outlier
      */

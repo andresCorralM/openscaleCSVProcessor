@@ -6,7 +6,9 @@ package org.iampiti.outlier;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This outlier detector considers outliers observations that are outside of 3
@@ -21,7 +23,8 @@ public class ThreeStdOutlierDetector implements OutlierDetector {
     double stdDev;
     double[] data;
     double lowerLimit, upperLimit;
-
+    
+    //Possible optimization: Only recalculate list of outliers when data is changed (setData(double[])). Save that list and return it when getOutliers is called
     @Override
     public double[] getOutliers() {
         double[] outliersArr;
@@ -55,6 +58,14 @@ public class ThreeStdOutlierDetector implements OutlierDetector {
     @Override
     public boolean isOutlier(double datum) {
         return (datum < lowerLimit || datum > upperLimit);
+    }
+
+    @Override
+    public List<Double> getDataAsList() {
+        List<Double> dataAsList;
+                
+        dataAsList=Arrays.stream(data).boxed().collect(Collectors.toList());
+        return Collections.unmodifiableList(dataAsList);
     }
 
 }

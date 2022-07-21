@@ -37,6 +37,7 @@ public class RemoveOutliersProcessor implements CSVProcessor {
             
             for (int i = 0; i < records.size(); i++) {
                 CSVRecord processing, reference;
+                double processingValue;
 
                 processing = records.get(i);
 
@@ -44,6 +45,12 @@ public class RemoveOutliersProcessor implements CSVProcessor {
                     reference = records.get(i - 1);
                 } else {
                     reference = records.get(i + 1);
+                }
+                
+                processingValue=Double.parseDouble(processing.get(column));
+                
+                if(outlierDetector.isOutlier(processingValue)){
+                    
                 }
             }
         }

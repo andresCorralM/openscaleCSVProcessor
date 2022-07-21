@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 import org.apache.commons.csv.CSVRecord;
 import org.iampiti.outlier.ThreeStdOutlierDetector;
+import org.iampiti.parser.ModifiableCSVRecord;
 import org.iampiti.parser.Parser;
 import org.iampiti.processor.CSVProcessor;
 import org.iampiti.processor.RemoveOutliersProcessor;
@@ -56,6 +58,8 @@ public class Main {
         List<CSVRecord> records;
         
         records=parse(inputCSVFile);
+        List<ModifiableCSVRecord> modifiableRecords;
+        modifiableRecords=records.stream().map(r -> new ModifiableCSVRecord(r)).collect(Collectors.toList());
         
         //Run processors
         for (CSVProcessor  processor : processorsToRun){
