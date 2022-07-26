@@ -19,26 +19,15 @@ import java.util.stream.Collectors;
  */
 public class ThreeStdOutlierDetector implements OutlierDetector {
 
-    double mean;
-    double stdDev;
-    double[] data;
-    double lowerLimit, upperLimit;
+    private double mean;
+    private double stdDev;
+    private double[] data;
+    private double lowerLimit, upperLimit;
+    private double[] outliers;
     
-    //Possible optimization: Only recalculate list of outliers when data is changed (setData(double[])). Save that list and return it when getOutliers is called
     @Override
     public double[] getOutliers() {
-        double[] outliersArr;
-        List<Double> outliers=new ArrayList<>();
-        
-        for(double datum: data){
-            if(isOutlier(datum)){
-                outliers.add(datum);
-            }
-        }
-        
-        outliersArr = Arrays.stream(outliers.toArray()).mapToDouble(d->((Double)d).doubleValue()).toArray();
-        
-        return outliersArr;
+        return outliers;
     }
 
     @Override
@@ -53,6 +42,8 @@ public class ThreeStdOutlierDetector implements OutlierDetector {
         cutoff = stdDev * 3;
         lowerLimit = mean - cutoff;
         upperLimit = mean + cutoff;
+        
+        this.outliers=recalculateOutliers(data);
     }
 
     @Override
@@ -66,6 +57,21 @@ public class ThreeStdOutlierDetector implements OutlierDetector {
                 
         dataAsList=Arrays.stream(data).boxed().collect(Collectors.toList());
         return Collections.unmodifiableList(dataAsList);
+    }
+    
+    private double[] recalculateOutliers(double[] _data){
+        double[] outliersArr;
+        List<Double> outliersList=new ArrayList<>();
+        
+        for(double datum: _data){
+            if(isOutlier(datum)){
+                outliersList.add(datum);
+            }
+        }
+        
+        outliersArr = Arrays.stream(outliersList.toArray()).mapToDouble(d->((Double)d).doubleValue()).toArray();
+        
+        return outliersArr;
     }
 
 }

@@ -1,4 +1,2 @@
-- Created class ModifiableCSVRecord. Since Apache's CSVRecord is a read-only view of a row of a CSV file we need this to be able to do modifications to CSVRecords
-- OutlierDetector: Added List<Double> getDataAsList() to return a read-only view of the data set in the instance
-- Added Netbeans configuration file nbactions.xml
-- Improvements to RemoveOutliersProcessor.removeOutliersForColumns
+- Optimized operation of ThreeStdOutlierDetector: Now it recalculates the outliers only when the data is changed. getOutliers() just returns the stored result.
+- Made all member variables of ThreeStdOutlierDetector private as they should've been from the beginning.
