@@ -1,2 +1,0 @@
-- Optimized operation of ThreeStdOutlierDetector: Now it recalculates the outliers only when the data is changed. getOutliers() just returns the stored result.
-- Made all member variables of ThreeStdOutlierDetector private as they should've been from the beginning.
