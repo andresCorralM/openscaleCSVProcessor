@@ -1,5 +1,5 @@
 
-package org.iampiti.parser;
+package org.iampiti.csv.record;
 
 import java.util.HashMap;
 import java.util.Map;

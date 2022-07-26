@@ -9,7 +9,7 @@ import java.util.logging.Level;
 import java.util.stream.Collectors;
 import org.apache.commons.csv.CSVRecord;
 import org.iampiti.outlier.ThreeStdOutlierDetector;
-import org.iampiti.parser.ModifiableCSVRecord;
+import org.iampiti.csv.record.ModifiableCSVRecord;
 import org.iampiti.parser.Parser;
 import org.iampiti.processor.CSVProcessor;
 import org.iampiti.processor.RemoveOutliersProcessor;
@@ -63,16 +63,16 @@ public class Main {
         
         //Run processors
         for (CSVProcessor  processor : processorsToRun){
-            records=processor.process(records);
+            modifiableRecords=processor.process(modifiableRecords);
         }
 
-        write(outputCSVFile, records);
+        write(outputCSVFile, modifiableRecords);
     }
 
     /**
      * Writes the file back to disk
      */
-    private void write(File outputCSVFile, final List<CSVRecord> recordsToSave) {
+    private void write(File outputCSVFile, final List<ModifiableCSVRecord> recordsToSave) {
 
     }
 

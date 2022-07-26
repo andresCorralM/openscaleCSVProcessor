@@ -3,6 +3,7 @@ package org.iampiti.processor;
 import java.util.List;
 import org.apache.commons.csv.CSVRecord;
 import org.iampiti.outlier.OutlierDetector;
+import org.iampiti.csv.record.ModifiableCSVRecord;
 import org.iampiti.util.CSVRecordUtils;
 
 /**
@@ -18,7 +19,7 @@ public class RemoveOutliersProcessor implements CSVProcessor {
     }
 
     @Override
-    public List<CSVRecord> process(List<CSVRecord> records) {
+    public List<ModifiableCSVRecord> process(List<ModifiableCSVRecord> records) {
         removeOutliersForColumns(records, "");
         return null;
     }
@@ -27,16 +28,15 @@ public class RemoveOutliersProcessor implements CSVProcessor {
      * Removes outliers by using the value from the previous record.<br>
      * If the record is the first use the second as the "correcting" value
      */
-    private List<CSVRecord> removeOutliersForColumns(List<CSVRecord> records, String... columns) {
+    private List<CSVRecord> removeOutliersForColumns(List<ModifiableCSVRecord> records, String... columns) {
         for (String column : columns) {
-            //TODO: Get column values as a double array. We need this to initialize the outlierDetector with setData(double[])
             double[] columnValues;
             
             columnValues=CSVRecordUtils.getDoubleValuesForColumn(records, column);
             outlierDetector.setData(columnValues);
             
             for (int i = 0; i < records.size(); i++) {
-                CSVRecord processing, reference;
+                ModifiableCSVRecord processing, reference;
                 double processingValue;
 
                 processing = records.get(i);
