@@ -20,7 +20,7 @@ public class RemoveOutliersProcessor implements CSVProcessor {
 
     @Override
     public List<ModifiableCSVRecord> process(List<ModifiableCSVRecord> records) {
-        removeOutliersForColumns(records, "");
+        removeOutliersForColumns(records);
         return null;
     }
 

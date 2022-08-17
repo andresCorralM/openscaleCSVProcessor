@@ -34,4 +34,8 @@ public class ModifiableCSVRecord{
     public void set(String column, String value){
         modifiedColumns.put(column, value);
     }
+    
+    public Map<String,String> toMap(){
+        return referencedRecord.toMap();
+    }
 }

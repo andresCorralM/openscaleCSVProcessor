@@ -1,6 +1,7 @@
 
 package org.iampiti.util;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.csv.CSVRecord;
 import org.iampiti.csv.record.ModifiableCSVRecord;
@@ -69,5 +70,21 @@ public class CSVRecordUtils {
         }
         
         return columnValue;
+    }
+    
+    public static List<String> getColumnNames(ModifiableCSVRecord record){
+        List columnNames=new ArrayList<>();
+        
+        columnNames.addAll(record.toMap().keySet());
+        
+        return columnNames;
+    }
+    
+    public static List<String> getColumnNames(CSVRecord record){
+        List columnNames=new ArrayList<>();
+        
+        columnNames.addAll(record.toMap().keySet());
+        
+        return columnNames;
     }
 }

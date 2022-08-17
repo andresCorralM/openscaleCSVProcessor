@@ -34,4 +34,25 @@ public class CSVRecordUtilsTest {
         
         Assert.assertArrayEquals(expectedValues, parsedWeightColumnValues, 0.1);
     }
+    
+    @Test
+    public void getColumnNamesTest() throws IOException{
+        InputStream testFileIS;
+        List<CSVRecord> testFileRecords;
+        
+        testFileIS=getClass().getResourceAsStream("/test.csv");
+        
+        try(InputStreamReader isr=new InputStreamReader(testFileIS);){
+           Parser parser;
+           parser=Parser.getParser();
+           testFileRecords=parser.parse(isr);
+        }
+        
+        List<String> columnNames;
+        
+        columnNames=CSVRecordUtils.getColumnNames(testFileRecords.get(0));
+        String[] expectedValues={"biceps","bone","caliper1","caliper2","caliper3","calories","chest","comment","dateTime","fat","hip","lbm","muscle","neck","thigh","visceralFat","waist","water","weight"};
+        
+        Assert.assertArrayEquals("Both sets of column names should match", expectedValues, columnNames.toArray(new String[0]));
+    }
 }
