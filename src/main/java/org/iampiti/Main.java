@@ -21,8 +21,12 @@ public class Main {
     private static final List<CSVProcessor> processorsToRun;
     
     static{
+        //Process every column except "dateTime"
+        final String[] columnsToProcess={"biceps","bone","caliper1","caliper2","caliper3","calories","chest","comment","fat","hip","lbm","muscle","neck","thigh","visceralFat","waist","water","weight"};
+        
         processorsToRun=new ArrayList<>();
-        processorsToRun.add(new RemoveOutliersProcessor(new ThreeStdOutlierDetector()));
+        
+        processorsToRun.add(new RemoveOutliersProcessor(new ThreeStdOutlierDetector(), columnsToProcess));
     }
 
     /**

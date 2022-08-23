@@ -14,12 +14,12 @@ import org.junit.Test;
  * @author Andres
  */
 public class CSVRecordUtilsTest {
-    @Test
-    public void getDoubleValuesForColumnTest() throws IOException{
+    
+    /*private List<CSVRecord> parseFile(String path) throws IOException{
         InputStream testFileIS;
         List<CSVRecord> testFileRecords;
         
-        testFileIS=getClass().getResourceAsStream("/test.csv");
+        testFileIS=getClass().getResourceAsStream(path);
         
         try(InputStreamReader isr=new InputStreamReader(testFileIS);){
            Parser parser;
@@ -27,26 +27,28 @@ public class CSVRecordUtilsTest {
            testFileRecords=parser.parse(isr);
         }
         
+        return testFileRecords;
+    }*/
+    
+    @Test
+    public void getDoubleValuesForColumnTest() throws IOException{
+        List<CSVRecord> testFileRecords;
+        
+        testFileRecords=CSVUtils.parseFile("test.csv");
+        
         double[] parsedWeightColumnValues;
         parsedWeightColumnValues=CSVRecordUtils.getDoubleValuesForColumn(testFileRecords, "weight");
         
-        double[] expectedValues={74.5, 73.6, 72.9, 73.3, 74.0};
+        double[] expectedValues={74.5, 73.6, 72.9, 73.3, 74.0, 63.5};
         
         Assert.assertArrayEquals(expectedValues, parsedWeightColumnValues, 0.1);
     }
     
     @Test
     public void getColumnNamesTest() throws IOException{
-        InputStream testFileIS;
         List<CSVRecord> testFileRecords;
         
-        testFileIS=getClass().getResourceAsStream("/test.csv");
-        
-        try(InputStreamReader isr=new InputStreamReader(testFileIS);){
-           Parser parser;
-           parser=Parser.getParser();
-           testFileRecords=parser.parse(isr);
-        }
+        testFileRecords=CSVUtils.parseFile("test.csv");
         
         List<String> columnNames;
         

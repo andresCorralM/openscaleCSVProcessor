@@ -1,7 +1,6 @@
 package org.iampiti.processor;
 
 import java.util.List;
-import org.apache.commons.csv.CSVRecord;
 import org.iampiti.outlier.OutlierDetector;
 import org.iampiti.csv.record.ModifiableCSVRecord;
 import org.iampiti.util.CSVRecordUtils;
@@ -13,22 +12,43 @@ import org.iampiti.util.CSVRecordUtils;
 public class RemoveOutliersProcessor implements CSVProcessor {
     
     private final OutlierDetector outlierDetector;
+    private String[] columnsToProcess=null;
     
     public RemoveOutliersProcessor(OutlierDetector outlierDetector){
         this.outlierDetector=outlierDetector;
     }
+    
+    public RemoveOutliersProcessor(OutlierDetector outlierDetector, String... columns){
+        this(outlierDetector);
+        
+        if(columns.length>0){
+            this.columnsToProcess=columns;
+        }
+    }
 
     @Override
     public List<ModifiableCSVRecord> process(List<ModifiableCSVRecord> records) {
-        removeOutliersForColumns(records);
-        return null;
+        String[] definitiveColumnsToProcess={};
+        
+        if(!records.isEmpty()){
+            if(columnsToProcess == null){
+                List<String> columnNames;
+
+                columnNames=CSVRecordUtils.getColumnNames(records.get(0));
+                definitiveColumnsToProcess=columnNames.toArray(new String[0]);
+            }else{
+                definitiveColumnsToProcess=columnsToProcess;
+            }
+        }
+        
+        return removeOutliersForColumns(records, definitiveColumnsToProcess);
     }
 
     /**
      * Removes outliers by using the value from the previous record.<br>
      * If the record is the first use the second as the "correcting" value
      */
-    private List<CSVRecord> removeOutliersForColumns(List<ModifiableCSVRecord> records, String... columns) {
+    private List<ModifiableCSVRecord> removeOutliersForColumns(List<ModifiableCSVRecord> records, String... columns) {
         for (String column : columns) {
             double[] columnValues;
             
@@ -50,11 +70,12 @@ public class RemoveOutliersProcessor implements CSVProcessor {
                 processingValue=Double.parseDouble(processing.get(column));
                 
                 if(outlierDetector.isOutlier(processingValue)){
-                    
+                    processing.set(column, reference.get(column));
+                    records.set(i, processing);
                 }
             }
         }
-        return null;
+        return records;
     }
 
 }
