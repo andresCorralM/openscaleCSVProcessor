@@ -16,8 +16,6 @@ public class CSVUtils {
         InputStream testFileIS;
         List<CSVRecord> testFileRecords;
         
-        //testFileIS=getClass().getResourceAsStream(path);
-        
         testFileIS=ClassLoader.getSystemResourceAsStream(path);
         
         try(InputStreamReader isr=new InputStreamReader(testFileIS);){
