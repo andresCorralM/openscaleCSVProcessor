@@ -1,5 +1,5 @@
 
-package org.iampiti.parser;
+package org.iampiti.csv.parser;
 
 import java.io.BufferedReader;
 import java.io.File;

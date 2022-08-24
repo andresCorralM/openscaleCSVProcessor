@@ -1,11 +1,11 @@
-package org.iampiti.util;
+package org.iampiti.csv.util;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 import org.apache.commons.csv.CSVRecord;
-import org.iampiti.parser.Parser;
+import org.iampiti.csv.parser.Parser;
 
 /**
  *

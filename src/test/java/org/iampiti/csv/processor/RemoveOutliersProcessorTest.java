@@ -1,13 +1,14 @@
-package org.iampiti.processor;
+package org.iampiti.csv.processor;
 
+import org.iampiti.csv.processor.RemoveOutliersProcessor;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.commons.csv.CSVRecord;
 import org.iampiti.csv.record.ModifiableCSVRecord;
 import org.iampiti.outlier.ThreeStdOutlierDetector;
-import org.iampiti.util.CSVRecordUtils;
-import org.iampiti.util.CSVUtils;
+import org.iampiti.csv.util.CSVRecordUtils;
+import org.iampiti.csv.util.CSVUtils;
 import org.junit.Assert;
 import org.junit.Test;
 

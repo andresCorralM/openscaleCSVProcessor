@@ -1,5 +1,5 @@
 
-package org.iampiti.util;
+package org.iampiti.csv.util;
 
 import java.util.ArrayList;
 import java.util.List;

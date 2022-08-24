@@ -1,9 +1,9 @@
-package org.iampiti.processor;
+package org.iampiti.csv.processor;
 
 import java.util.List;
 import org.iampiti.outlier.OutlierDetector;
 import org.iampiti.csv.record.ModifiableCSVRecord;
-import org.iampiti.util.CSVRecordUtils;
+import org.iampiti.csv.util.CSVRecordUtils;
 
 /**
  *

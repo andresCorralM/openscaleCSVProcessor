@@ -1,4 +1,4 @@
-package org.iampiti.processor;
+package org.iampiti.csv.processor;
 
 import java.util.List;
 import org.iampiti.csv.record.ModifiableCSVRecord;

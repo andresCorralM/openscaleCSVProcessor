@@ -10,9 +10,9 @@ import java.util.stream.Collectors;
 import org.apache.commons.csv.CSVRecord;
 import org.iampiti.outlier.ThreeStdOutlierDetector;
 import org.iampiti.csv.record.ModifiableCSVRecord;
-import org.iampiti.parser.Parser;
-import org.iampiti.processor.CSVProcessor;
-import org.iampiti.processor.RemoveOutliersProcessor;
+import org.iampiti.csv.parser.Parser;
+import org.iampiti.csv.processor.CSVProcessor;
+import org.iampiti.csv.processor.RemoveOutliersProcessor;
 
 public class Main {
 
