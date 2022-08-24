@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 import org.apache.commons.csv.CSVRecord;
+import org.iampiti.csv.CSVWriter;
 import org.iampiti.outlier.ThreeStdOutlierDetector;
 import org.iampiti.csv.record.ModifiableCSVRecord;
 import org.iampiti.csv.parser.Parser;
@@ -69,15 +70,21 @@ public class Main {
         for (CSVProcessor  processor : processorsToRun){
             modifiableRecords=processor.process(modifiableRecords);
         }
-
-        write(outputCSVFile, modifiableRecords);
+        try{
+            write(outputCSVFile, modifiableRecords);
+        }catch(IOException e){
+            LOG.log(Level.SEVERE, "Error writing modified CSV file", e);
+        }
     }
 
     /**
      * Writes the file back to disk
      */
-    private void write(File outputCSVFile, final List<ModifiableCSVRecord> recordsToSave) {
-
+    private void write(File outputCSVFile, final List<ModifiableCSVRecord> recordsToSave) throws IOException {
+        CSVWriter csvWriter;
+        
+        csvWriter=new CSVWriter();
+        csvWriter.write(recordsToSave, outputCSVFile);
     }
 
     public static void main(String[] args) {
