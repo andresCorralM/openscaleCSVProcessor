@@ -1,8 +1,6 @@
 
 package org.iampiti.csv.util;
 
-import org.iampiti.csv.util.CSVRecordUtils;
-import org.iampiti.csv.util.CSVUtils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;

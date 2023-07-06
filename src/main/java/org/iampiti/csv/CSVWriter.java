@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.iampiti.csv.record.ModifiableCSVRecord;
 import org.iampiti.csv.util.CSVRecordUtils;
 
@@ -16,6 +18,8 @@ import org.iampiti.csv.util.CSVRecordUtils;
  * @author Andres
  */
 public class CSVWriter {
+    
+    private static final Logger LOG = Logger.getLogger("CSVWriter");
 
     public static final char DEFAULT_RECORD_SEPARATOR = '\n';
     public static final char DEFAULT_DELIMITER_STRING = ',';
@@ -46,6 +50,8 @@ public class CSVWriter {
                 writeHeader(headerColumnNames, bw);
             }
 
+            LOG.log(Level.FINE, "Writing CSV records ({0})", records.size());
+            
             for (ModifiableCSVRecord record : records) {
                 writeRecord(record, headerColumnNames, bw);
             }
@@ -54,6 +60,8 @@ public class CSVWriter {
 
     private void writeHeader(String[] columnNames, BufferedWriter writer) throws IOException {
         StringBuilder sb = new StringBuilder("");
+        
+        LOG.log(Level.FINE, "Writing CSV header");
 
         for (String column : columnNames) {
             sb.append("").append(column).append("").append(delimiterString);
@@ -64,7 +72,7 @@ public class CSVWriter {
 
     private void writeRecord(ModifiableCSVRecord record, String[] columnNames, BufferedWriter writer) throws IOException {
         StringBuilder sb = new StringBuilder("");
-
+        
         for (String column : columnNames) {
             sb.append(record.get(column)).append(delimiterString);
         }

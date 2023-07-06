@@ -17,7 +17,7 @@ import org.iampiti.csv.processor.RemoveOutliersProcessor;
 
 public class Main {
 
-    static final Logger LOG = Logger.getLogger("Main");
+    private static final Logger LOG = Logger.getLogger("Main");
     
     private static final List<CSVProcessor> processorsToRun;
     
@@ -44,10 +44,10 @@ public class Main {
         } else {
             outputFile = new File(args[1]);
         }
-
+        
+        LOG.log(Level.INFO, "Input file: {0}. Output file: {1}", new String[]{inputFile.getName(), outputFile.getName()});
         //
         process(inputFile, outputFile);
-        //write(outputFile);
     }
 
     private List<CSVRecord> parse(File inputCSVFile) throws IOException {
@@ -82,6 +82,8 @@ public class Main {
      */
     private void write(File outputCSVFile, final List<ModifiableCSVRecord> recordsToSave) throws IOException {
         CSVWriter csvWriter;
+        
+        LOG.log(Level.INFO, "Writing to output file {0}", outputCSVFile.getAbsolutePath());
         
         csvWriter=new CSVWriter();
         csvWriter.write(recordsToSave, outputCSVFile);
