@@ -3,6 +3,7 @@ package org.iampiti;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.logging.Level;
@@ -14,6 +15,7 @@ import org.iampiti.csv.record.ModifiableCSVRecord;
 import org.iampiti.csv.parser.Parser;
 import org.iampiti.csv.processor.CSVProcessor;
 import org.iampiti.csv.processor.RemoveOutliersProcessor;
+import org.iampiti.openscale.model.Column;
 
 public class Main {
 
@@ -23,11 +25,14 @@ public class Main {
     
     static{
         //Process every column except "dateTime"
-        final String[] columnsToProcess={"biceps","bone","caliper1","caliper2","caliper3","calories","chest","comment","fat","hip","lbm","muscle","neck","thigh","visceralFat","waist","water","weight"};
+        final Column[] columnsToProcess={Column.BICEPS, Column.BONE, Column.CALIPER1, Column.CALIPER2, Column.CALIPER3, Column.CALORIES, Column.CHEST
+        , Column.COMMENT, Column.FAT, Column.HIP, Column.LBM, Column.MUSCLE, Column.NECK, Column.THIGH, Column.VISCERALFAT
+        , Column.WAIST, Column.WEIGHT};
+        final String[] columnsToProcessAsString=Arrays.stream(columnsToProcess).map(c -> c.toString()).toArray(String[]::new) ;
         
         processorsToRun=new ArrayList<>();
         
-        processorsToRun.add(new RemoveOutliersProcessor(new ThreeStdOutlierDetector(), columnsToProcess));
+        processorsToRun.add(new RemoveOutliersProcessor(new ThreeStdOutlierDetector(), columnsToProcessAsString));
     }
 
     /**
@@ -75,6 +80,8 @@ public class Main {
         }catch(IOException e){
             LOG.log(Level.SEVERE, "Error writing modified CSV file", e);
         }
+        
+        //Merge?
     }
 
     /**
@@ -88,7 +95,14 @@ public class Main {
         csvWriter=new CSVWriter();
         csvWriter.write(recordsToSave, outputCSVFile);
     }
-
+    
+    /**
+     * TODO: We have to decide what to do with the input data:
+     * <ul>
+     * <li> Always remove outliers and merge input files </li>
+     * <li> Let the user choose what to do with command line parameters </li>
+     * <ul>
+     */
     public static void main(String[] args) {
         Main main = new Main();
         try {
